@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+	<!-- Data-shape diagram for @liiift-studio/sanity-nested-object-selector. Hand-authored SVG (reproducible, diffable). Regenerate by editing this file; keep in sync with assets/data-shape.mmd. -->
+	<defs>
+		<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+			<path d="M0,0 L8,3 L0,6 z" fill="#6b7280"/>
+		</marker>
+		<style>
+			.box { fill: #ffffff; stroke: #d1d5db; stroke-width: 1.5; rx: 10; }
+			.accent { fill: #eef2ff; stroke: #6366f1; }
+			.store { fill: #ecfdf5; stroke: #10b981; }
+			.title { font-size: 14px; font-weight: 700; fill: #111827; }
+			.label { font-size: 12px; fill: #374151; }
+			.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #1f2937; }
+			.muted { font-size: 11px; fill: #6b7280; }
+			.edge { stroke: #6b7280; stroke-width: 1.5; fill: none; }
+			.edgelabel { font-size: 10.5px; fill: #6b7280; }
+		</style>
+	</defs>
+
+	<!-- 1. Source documents -->
+	<rect class="box" x="20" y="70" width="220" height="180" rx="10"/>
+	<text class="title" x="34" y="96">Source documents</text>
+	<text class="muted" x="34" y="114">_type == sourceType</text>
+	<text class="mono" x="34" y="142">{</text>
+	<text class="mono" x="46" y="160">_type: "category",</text>
+	<text class="mono" x="46" y="178">products: [           // nestedField</text>
+	<text class="mono" x="58" y="196">{ name, slug, ... },</text>
+	<text class="mono" x="58" y="214">{ name, slug, ... },</text>
+	<text class="mono" x="46" y="232">]</text>
+	<text class="mono" x="34" y="250">}</text>
+
+	<!-- arrow 1 -->
+	<path class="edge" d="M244,160 L312,160" marker-end="url(#arrow)"/>
+	<text class="edgelabel" x="248" y="150">GROQ</text>
+
+	<!-- 2. Projection -->
+	<rect class="box accent" x="316" y="78" width="220" height="164" rx="10"/>
+	<text class="title" x="330" y="104">Projected + flattened</text>
+	<text class="muted" x="330" y="122">titleField &#8594; title</text>
+	<text class="muted" x="330" y="138">valueField &#8594; value</text>
+	<text class="mono" x="330" y="166">[</text>
+	<text class="mono" x="342" y="184">{ title, value },</text>
+	<text class="mono" x="342" y="202">{ title, value },</text>
+	<text class="mono" x="342" y="220">...   // deduped by value</text>
+	<text class="mono" x="330" y="238">]</text>
+
+	<!-- arrow 2 -->
+	<path class="edge" d="M540,160 L608,160" marker-end="url(#arrow)"/>
+	<text class="edgelabel" x="546" y="150">render</text>
+
+	<!-- 3. Selector UI -->
+	<rect class="box" x="612" y="78" width="228" height="164" rx="10"/>
+	<text class="title" x="626" y="104">Checkbox selector</text>
+	<rect x="626" y="118" width="200" height="22" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+	<text class="muted" x="634" y="133">Search… (shown when &gt; 5)</text>
+	<rect x="626" y="148" width="14" height="14" rx="3" fill="#6366f1"/>
+	<text class="label" x="648" y="160">Item A</text>
+	<rect x="626" y="170" width="14" height="14" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+	<text class="label" x="648" y="182">Item B</text>
+	<rect x="626" y="192" width="14" height="14" rx="3" fill="#6366f1"/>
+	<text class="label" x="648" y="204">Item C</text>
+	<text class="muted" x="626" y="230">2 selected</text>
+
+	<!-- arrow down to store -->
+	<path class="edge" d="M726,242 L726,300" marker-end="url(#arrow)"/>
+	<text class="edgelabel" x="734" y="276">onChange</text>
+
+	<!-- 4. Stored value -->
+	<rect class="box store" x="612" y="304" width="228" height="86" rx="10"/>
+	<text class="title" x="626" y="330">Stored field value</text>
+	<text class="muted" x="626" y="348">string[] of selected values</text>
+	<text class="mono" x="626" y="372">["valueA", "valueC"]</text>
+
+	<!-- empty-state note -->
+	<text class="muted" x="316" y="270">empty &#8594; unset() when nothing is selected</text>
+</svg>

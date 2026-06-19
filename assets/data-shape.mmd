@@ -1,0 +1,10 @@
+%% Editable source for the nested-selection data-shape diagram.
+%% The committed README embeds assets/data-shape.svg (renders on GitHub AND npm).
+%% This Mermaid file is the diffable companion; render with:
+%%   npx -y @mermaid-js/mermaid-cli -i assets/data-shape.mmd -o assets/data-shape.svg
+%% then hand-tune the SVG if needed and bump the ?v=N cache-buster in README.md.
+flowchart LR
+	A["Source documents<br/>_type == sourceType<br/>nestedField: [ { ... }, { ... } ]"]
+		-->|GROQ projection| B["Flattened + deduped<br/>titleField &rarr; title<br/>valueField &rarr; value<br/>[ { title, value }, ... ]"]
+	B -->|render| C["Checkbox selector<br/>search (when &gt; 5)<br/>n selected"]
+	C -->|onChange| D["Stored value<br/>string[] of selected values<br/>unset() when empty"]
