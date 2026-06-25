@@ -1,6 +1,6 @@
 {
 	"name": "@liiift-studio/sanity-nested-object-selector",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Sanity Studio searchable checkbox selector for nested objects within Sanity documents.",
 	"license": "MIT",
 	"author": "Liiift Studio",
