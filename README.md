@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-nested-object-selector)
 [![license](https://img.shields.io/npm/l/@liiift-studio/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-nested-object-selector)
+[![sanity: v3 – v6](https://img.shields.io/badge/sanity-v3%20%E2%80%93%20v6-f03e2f.svg)](#requirements)
 
 Sanity Studio searchable checkbox selector for items nested within another document type. Builds GROQ queries dynamically and supports a title filter, single-click selection, and selection count feedback.
 
@@ -26,6 +27,7 @@ npm install @liiift-studio/sanity-nested-object-selector
 Use `NestedObjectArraySelector` as a custom `input` component on an array field:
 
 ```typescript
+import { defineType, defineField } from 'sanity'
 import { NestedObjectArraySelector } from '@liiift-studio/sanity-nested-object-selector'
 
 export const mySchema = defineType({
@@ -56,6 +58,29 @@ export const mySchema = defineType({
 ```
 
 `titleField` and `valueField` are GROQ projection expressions evaluated **in the scope of each nested item**, so dotted paths like `slug.current` work. Each nested item must resolve to a **non-empty** `title` *and* `value` — items missing either are dropped. The stored field value is an array of the resolved `value` strings (e.g. `["oxford", "garamond"]`); when nothing is selected the field is `unset`.
+
+### Data shape
+
+The stored value is a plain `string[]` of the selected `valueField` results — no `_key`, no objects, no references:
+
+```json
+"products": ["oxford", "garamond"]
+```
+
+Because it is a plain string array, read it back with no dereferencing:
+
+```groq
+*[_type == "collection"]{ products }
+```
+
+If you need the full nested objects at query time, join back against the source type yourself:
+
+```groq
+*[_type == "collection"]{
+  products,
+  "resolved": *[_type == "category"].products[slug.current in ^.^.products]
+}
+```
 
 ### Options
 
@@ -108,13 +133,35 @@ The `sourceType`, `nestedField`, `titleField`, `valueField`, `filter`, and `sort
 
 ## Requirements
 
-This is a Sanity v3+ Studio plugin (built and tested against Sanity v5). It is a Studio input component, not a standalone library — it must run inside a Sanity Studio.
+Supports **Sanity Studio v3, v4, v5 and v6** from a single build. It is a Studio input component, not a standalone library — it must run inside a Sanity Studio React tree (the `useNestedObjects` hook uses `useClient`, API version `2023-01-01`).
 
-| Package | Version |
+| Package | Supported range |
 |---|---|
-| `@sanity/ui` | `>=3` |
+| `sanity` | `>=3 <7` (Studio v3 – v6) |
 | `react` | `>=18` |
-| `sanity` | `>=3` |
+| `@sanity/ui` | `>=2 <5` |
+
+This component uses no icons, so it declares **no `@sanity/icons` peer** — unlike its sibling packages.
+
+### How one build spans four majors
+
+The `@sanity/ui` peer range looks wrong at a glance, so here is the reasoning:
+
+- **`@sanity/ui` v4 moved components to subpath entries.** `Tooltip`, `Menu`, `MenuButton`, `MenuItem`, `Code`, `Popover`, `Autocomplete`, `Toast` and `useToast` are no longer on the package root.
+- **`@sanity/icons` v5 removed every named `*Icon` export** (relevant to the sibling packages in this suite, not to this one).
+- **Both still *declare* the removed names in their `.d.ts`, typed `never`.** A named import therefore type-checks, compiles, and only then fails at runtime — the breakage is invisible to `tsc` and to a green build.
+- **So this package imports no `@sanity/ui` symbol directly.** `Stack`, `Card`, `Text`, `Checkbox`, `Box`, `Spinner` and `Flex` all route through [`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat) (a real runtime dependency, installed for you), which resolves the installed namespace at runtime and works against either layout.
+
+**The `@sanity/ui` peer is `>=2 <5`, and that is correct for Sanity v6** — Studio v6 ships `@sanity/ui` **v4**, not v5. It is not a stale upper bound.
+
+### Verification status
+
+v3 – v6 support is established by the declared peer ranges, green builds, and the runtime-resolving compat layer. Beyond that, this component has been exercised in **three in-house Studios**. It has **not** been broadly tested in a running Sanity 6 Studio outside those. Please [open an issue](https://github.com/Liiift-Studio/sanity-nested-object-selector/issues) if you hit a version-specific problem.
+
+### Packaging
+
+- Ships **ESM** (`dist/index.mjs`) and **CJS** (`dist/index.js`).
+- The build sets `dts: false`, so **no bundled `.d.ts` type declarations are shipped.** TypeScript consumers will need their own module declaration, or can import from the published `src/` (exposed via the `source` export condition).
 
 ## License
 
