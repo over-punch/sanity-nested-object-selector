@@ -1,7 +1,7 @@
 # sanity-nested-object-selector
 
-[![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-nested-object-selector)
-[![license](https://img.shields.io/npm/l/@liiift-studio/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-nested-object-selector)
+[![npm version](https://img.shields.io/npm/v/@overpunch/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@overpunch/sanity-nested-object-selector)
+[![license](https://img.shields.io/npm/l/@overpunch/sanity-nested-object-selector.svg)](https://www.npmjs.com/package/@overpunch/sanity-nested-object-selector)
 [![sanity: v3 – v6](https://img.shields.io/badge/sanity-v3%20%E2%80%93%20v6-f03e2f.svg)](#requirements)
 
 Sanity Studio searchable checkbox selector for items nested within another document type. Builds GROQ queries dynamically and supports a title filter, single-click selection, and selection count feedback.
@@ -19,7 +19,7 @@ The component reads its configuration from the field's schema `options`, runs a 
 ## Install
 
 ```bash
-npm install @liiift-studio/sanity-nested-object-selector
+npm install @overpunch/sanity-nested-object-selector
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ Use `NestedObjectArraySelector` as a custom `input` component on an array field:
 
 ```typescript
 import { defineType, defineField } from 'sanity'
-import { NestedObjectArraySelector } from '@liiift-studio/sanity-nested-object-selector'
+import { NestedObjectArraySelector } from '@overpunch/sanity-nested-object-selector'
 
 export const mySchema = defineType({
 	name: 'collection',
@@ -102,7 +102,7 @@ If any of the four required options is missing, the component renders a configur
 The data layer is also exported on its own, in case you want to render the items with your own UI:
 
 ```javascript
-import { useNestedObjects } from '@liiift-studio/sanity-nested-object-selector'
+import { useNestedObjects } from '@overpunch/sanity-nested-object-selector'
 
 const { objects, loading, error } = useNestedObjects({
 	sourceType: 'category',
@@ -150,7 +150,7 @@ The `@sanity/ui` peer range looks wrong at a glance, so here is the reasoning:
 - **`@sanity/ui` v4 moved components to subpath entries.** `Tooltip`, `Menu`, `MenuButton`, `MenuItem`, `Code`, `Popover`, `Autocomplete`, `Toast` and `useToast` are no longer on the package root.
 - **`@sanity/icons` v5 removed every named `*Icon` export** (relevant to the sibling packages in this suite, not to this one).
 - **Both still *declare* the removed names in their `.d.ts`, typed `never`.** A named import therefore type-checks, compiles, and only then fails at runtime — the breakage is invisible to `tsc` and to a green build.
-- **So this package imports no `@sanity/ui` symbol directly.** `Stack`, `Card`, `Text`, `Checkbox`, `Box`, `Spinner` and `Flex` all route through [`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat) (a real runtime dependency, installed for you), which resolves the installed namespace at runtime and works against either layout.
+- **So this package imports no `@sanity/ui` symbol directly.** `Stack`, `Card`, `Text`, `Checkbox`, `Box`, `Spinner` and `Flex` all route through [`@overpunch/sanity-ui-compat`](https://www.npmjs.com/package/@overpunch/sanity-ui-compat) (a real runtime dependency, installed for you), which resolves the installed namespace at runtime and works against either layout.
 
 **The `@sanity/ui` peer is `>=2 <5`, and that is correct for Sanity v6** — Studio v6 ships `@sanity/ui` **v4**, not v5. It is not a stale upper bound.
 

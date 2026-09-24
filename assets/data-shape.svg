@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-	<!-- Data-shape diagram for @liiift-studio/sanity-nested-object-selector. Hand-authored SVG (reproducible, diffable). Regenerate by editing this file; keep in sync with assets/data-shape.mmd. -->
+	<!-- Data-shape diagram for @overpunch/sanity-nested-object-selector. Hand-authored SVG (reproducible, diffable). Regenerate by editing this file; keep in sync with assets/data-shape.mmd. -->
 	<defs>
 		<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
 			<path d="M0,0 L8,3 L0,6 z" fill="#6b7280"/>
