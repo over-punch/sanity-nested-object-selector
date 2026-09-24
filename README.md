@@ -12,7 +12,7 @@ Sanity Studio searchable checkbox selector for items nested within another docum
 
 The component reads its configuration from the field's schema `options`, runs a generated GROQ query against your dataset, flattens the nested arrays from every matching document into `{ title, value }` items (deduplicated by `value`), and renders them as a checkbox list. The values you tick are written back to the field as a `string[]`.
 
-![Data flow: source documents are projected and flattened into deduplicated title/value items, rendered as a checkbox selector, and stored as a string array of the selected values.](https://raw.githubusercontent.com/Liiift-Studio/sanity-nested-object-selector/main/assets/data-shape.svg?v=1)
+![Data flow: source documents are projected and flattened into deduplicated title/value items, rendered as a checkbox selector, and stored as a string array of the selected values.](https://raw.githubusercontent.com/over-punch/sanity-nested-object-selector/main/assets/data-shape.svg?v=1)
 
 > **Screenshot wanted.** This is a Studio UI component and cannot be captured headlessly. A maintainer screenshot/GIF of the selector in the Studio (search box + checked rows + "N selected" footer) should be added here. _Placeholder — see `assets/`._
 
@@ -156,7 +156,7 @@ The `@sanity/ui` peer range looks wrong at a glance, so here is the reasoning:
 
 ### Verification status
 
-v3 – v6 support is established by the declared peer ranges, green builds, and the runtime-resolving compat layer. Beyond that, this component has been exercised in **three in-house Studios**. It has **not** been broadly tested in a running Sanity 6 Studio outside those. Please [open an issue](https://github.com/Liiift-Studio/sanity-nested-object-selector/issues) if you hit a version-specific problem.
+v3 – v6 support is established by the declared peer ranges, green builds, and the runtime-resolving compat layer. Beyond that, this component has been exercised in **three in-house Studios**. It has **not** been broadly tested in a running Sanity 6 Studio outside those. Please [open an issue](https://github.com/over-punch/sanity-nested-object-selector/issues) if you hit a version-specific problem.
 
 ### Packaging
 

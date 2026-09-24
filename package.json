@@ -47,7 +47,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Liiift-Studio/sanity-nested-object-selector.git"
+    "url": "git+https://github.com/over-punch/sanity-nested-object-selector.git"
   },
   "dependencies": {
     "@overpunch/sanity-ui-compat": "^0.1.2"
